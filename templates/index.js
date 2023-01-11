@@ -1,5 +1,6 @@
 const path = require("path");
 module.exports = {
+  "1dan": path.resolve(__dirname, `template - 1dan.docx`),
   "1kup": path.resolve(__dirname, `template - 1kup.docx`),
   "2kup": path.resolve(__dirname, `template - 2kup.docx`),
   "3kup": path.resolve(__dirname, `template - 3kup.docx`),
