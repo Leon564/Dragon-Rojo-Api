@@ -4,6 +4,7 @@ import express from "express";
 
 import { isAdmin, isAuth } from "../middlewares/auth.middleware.js";
 import { signIn, signUp } from "../controllers/users.controller.js";
+import template from "../controllers/template.js";
 
 const api = express.Router();
 
@@ -23,6 +24,7 @@ api.post("/signin", signIn);
 // api.get('/order/:key',auth.isAuth, orderCtrl.Get)
 // api.post('/order',auth.isAuth, orderCtrl.Create)
 // api.delete('/order/:key',auth.isAdmin, orderCtrl.Delete)
+api.get("/new", isAuth, template);
 
 api.get("/user", isAdmin, (req, res) => {
   res.send([req.user]);

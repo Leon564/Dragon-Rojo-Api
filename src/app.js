@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import template from "./controllers/template.js";
+
 import bodyParser from "body-parser";
 import routes from "./routes/index.js";
 
@@ -21,7 +21,7 @@ app.get("/", function (req, res) {
   res.send("home");
 });
 
-app.get("/new", template);
+
 
 app.use("/api", routes);
 

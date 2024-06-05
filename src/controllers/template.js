@@ -1,5 +1,5 @@
 import path from "path";
-import JSZip from "jszip";
+import PizZip from 'pizzip';
 import Docxtemplater from "docxtemplater";
 import templates from "../templates/index.js";
 import fs from "fs";
@@ -23,23 +23,18 @@ const mdoc = async (req, res) => {
   }
   let file = templates[data.lvl];
 
-  console.log(file);
-
   if (!file) return res.status(404).send("error template");
-  // Cargo el docx como un  binary
-  let content = fs.readFileSync(path.resolve(file), "binary");
-  //let zip= JSZip(content);
 
-  let zip = new JSZip(content);
+  let content = fs.readFileSync(path.resolve(file), "binary");
+
+  const zip = new PizZip(content);
 
   let doc = new Docxtemplater();
   doc.loadZip(zip);
 
-  // setea los valores de data ej: { first_name: 'John' , last_name: 'Doe'}
   doc.setData(data);
 
   try {
-    // renderiza el documento (remplaza las ocurrencias como {first_name} by John, {last_name} by Doe, ...)
     doc.render();
   } catch (error) {
     let e = {
