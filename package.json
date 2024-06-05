@@ -14,12 +14,16 @@
   "license": "ISC",
   "dependencies": {
     "@ilovepdf/ilovepdf-nodejs": "^0.2.1",
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.0",
     "cors": "^2.8.5",
     "docxtemplater": "^3.29.1",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
+    "firebase-admin": "^12.1.1",
     "jszip": "^3.9.1",
+    "jwt-simple": "^0.5.6",
+    "moment": "^2.30.1",
     "os": "^0.1.2",
     "path": "^0.12.7",
     "pizzip": "^3.1.1"

@@ -1,7 +1,8 @@
 import express from "express";
 import cors from "cors";
-import template from "./controller/template.js";
+import template from "./controllers/template.js";
 import bodyParser from "body-parser";
+import routes from "./routes/index.js";
 
 const app = express();
 
@@ -21,5 +22,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/new", template);
+
+app.use("/api", routes);
 
 export default app;
