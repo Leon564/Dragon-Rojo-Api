@@ -1,5 +1,11 @@
-const path = require("path");
-module.exports = {
+import path, {dirname} from "path";
+import { fileURLToPath } from 'url';
+
+// __filename and __dirname polyfills
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+export default {
   "1dan": path.resolve(__dirname, `template - 1dan.docx`),
   "1kup": path.resolve(__dirname, `template - 1kup.docx`),
   "2kup": path.resolve(__dirname, `template - 2kup.docx`),

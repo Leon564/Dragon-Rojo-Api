@@ -1,10 +1,10 @@
-const express = require("express");
-const cors = require("cors");
-const app = express();
-//const api = require('./routes')
-const template = require("./controller/template");
+import express from "express";
+import cors from "cors";
+import template from "./controller/template.js";
+import bodyParser from "body-parser";
 
-var bodyParser = require("body-parser");
+const app = express();
+
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -22,4 +22,4 @@ app.get("/", function (req, res) {
 
 app.get("/new", template);
 
-module.exports = app;
+export default app;

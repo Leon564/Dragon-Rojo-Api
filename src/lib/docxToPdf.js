@@ -1,9 +1,12 @@
-const ILovePDFApi = require('@ilovepdf/ilovepdf-nodejs');
-const ILovePDFFile = require('@ilovepdf/ilovepdf-nodejs/ILovePDFFile');
-const fs = require('fs');
-const os = require('os');
-const dotenv = require('dotenv');
-dotenv.config();
+
+import fs from 'fs';
+import os from 'os';
+import 'dotenv/config';
+// const ILovePDFApi = require('@ilovepdf/ilovepdf-nodejs');
+// const ILovePDFFile = require('@ilovepdf/ilovepdf-nodejs/ILovePDFFile');
+import ILovePDFApi from '@ilovepdf/ilovepdf-nodejs';
+import ILovePDFFile from '@ilovepdf/ilovepdf-nodejs/ILovePDFFile.js';
+
 
 const ilovepdf = new ILovePDFApi(process.env.ILOVEPF_PUBLIC_KEY, process.env.ILOVEPF_SECRET_KEY);
 
@@ -42,4 +45,4 @@ const wordToPdf = async (filePath) => {
             return { error: err };
         });
 }
-module.exports = wordToPdf;
+export default wordToPdf;
