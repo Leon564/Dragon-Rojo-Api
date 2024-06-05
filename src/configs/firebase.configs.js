@@ -1,3 +1,4 @@
+import 'dotenv/config';
 const firebaseConfig = {
   projectId: process.env.FIREBASE_PROJECT_ID,
   privateKey: process.env.FIREBASE_PRIVATE_KEY,
