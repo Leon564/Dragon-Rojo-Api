@@ -3,7 +3,7 @@
 // const services = require('../services/auth.service')
 // const firebase = require('../db/firebase')
 import { decodeToken, createToken } from "../services/auth.service.js";
-import { verificarEmail } from "../services/firebase.service.js";
+import { checkUser } from "../services/firebase.service.js";
 
 export const isAuth = (req, res, next) => {
   if (!req.headers.authorization) {
@@ -14,7 +14,7 @@ export const isAuth = (req, res, next) => {
 
   decodeToken(token)
     .then((response) => {
-      verificarEmail(response).then((result) => {
+      checkUser(response).then((result) => {
         if (!result)
           return res.status(401).send({ message: "El usuario ya no existe" });
         req.user = response;
@@ -25,6 +25,7 @@ export const isAuth = (req, res, next) => {
       res.status(response.status);
     });
 };
+
 export const isAdmin = (req, res, next) => {
   if (!req.headers.authorization) {
     return res.status(403).send({ message: "No tienes autorización" });
@@ -34,7 +35,7 @@ export const isAdmin = (req, res, next) => {
 
   decodeToken(token)
     .then((response) => {
-      verificarEmail(response).then((result) => {
+      checkUser(response).then((result) => {
         if (!result)
           return res.status(401).send({ message: "El usuario ya no existe" });
         if (result.role != "admin")

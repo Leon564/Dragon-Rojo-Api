@@ -3,14 +3,15 @@
 import express from "express";
 
 import { isAdmin, isAuth } from "../middlewares/auth.middleware.js";
-import { signIn, signUp } from "../controllers/users.controller.js";
+import { checkToken, signIn, signUp } from "../controllers/users.controller.js";
 import template from "../controllers/template.js";
+import { AllRecords } from "../controllers/records.controller.js";
 
 const api = express.Router();
 
 //Users
 api.post("/signup", signUp);
-api.post("/signin", signIn);
+api.post("/login", signIn);
 
 // //Productos
 // api.post('/product', auth.isAdmin, productCtrl.Create)
@@ -29,5 +30,9 @@ api.get("/new", isAuth, template);
 api.get("/user", isAdmin, (req, res) => {
   res.send([req.user]);
 });
+
+api.get("/checktoken", checkToken);
+
+api.get("/records", isAuth, AllRecords);
 
 export default api;

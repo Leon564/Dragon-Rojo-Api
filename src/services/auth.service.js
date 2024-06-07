@@ -7,11 +7,14 @@ import jwt from "jwt-simple";
 import moment from "moment";
 import config from "../configs/app.configs.js";
 
-export const createToken = (user) => {
+export const createToken = (user, remeberMe = false) => {
   const payload = {
     sub: user.email,
+    us: user.username,
     iat: moment().unix(),
-    exp: moment().add(14, "days").unix(),
+    exp: remeberMe
+      ? moment().add(30, "days").unix()
+      : moment().add(1, "days").unix(),
   };
   return jwt.encode(payload, config.SECRET_TOKEN);
 };
@@ -27,7 +30,7 @@ export const decodeToken = (token) => {
           message: "El token ha expirado",
         });
       }
-      resolve(payload.sub);
+      resolve({email: payload.sub, username: payload.us});
     } catch (err) {
       reject({
         status: 500,
