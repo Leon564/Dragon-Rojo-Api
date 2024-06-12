@@ -23,7 +23,6 @@ export class AuthService {
       sub: _user._id,
       isAdmin: _user.isAdmin,
     };
-    console.log('user logged in', _user);
     return {
       access_token: this.jwtService.sign(payload),
       user: {
@@ -36,7 +35,11 @@ export class AuthService {
 
   async checkToken(token: string) {
     const payload = this.jwtService.verify(token);
-    const user = await this.usersService.findOne(payload.username);
+    const user = await this.usersService.findOne(payload.username, [
+      'username',
+      'isAdmin',
+      '_id',
+    ]);
     if (!user) throw new NotAcceptableException(['Usuario no encontrado.']);
     return user;
   }

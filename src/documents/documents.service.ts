@@ -10,7 +10,7 @@ import { UpdateDocumentDto } from './dto/update-document.dto';
 import moment from 'moment';
 import { InjectModel } from '@nestjs/mongoose';
 import { CertificateDocument } from './entities/document.entity';
-import { Model } from 'mongoose';
+import mongoose, { Model, Types } from 'mongoose';
 import { PaginateModel, PaginateParams } from '../../libs/utils/mongodb.utils';
 
 @Injectable()
@@ -31,6 +31,17 @@ export class DocumentsService {
     ) {
       throw new Error('error data');
     }
+
+    if (data.save_history) {
+      this.documentModel.create({
+        date: data.date,
+        name: data.name,
+        lastName: data.last_name,
+        level: data.lvl,
+        fullName: `${data.name} ${data.last_name}`,
+      });
+    }
+
     const month = moment(data.date)
       .locale('ES-SV')
       .format('MMMM')
@@ -70,13 +81,6 @@ export class DocumentsService {
 
     const buffer = doc.getZip().generate({ type: 'nodebuffer' });
 
-    this.documentModel.create({
-      date: data.date,
-      name: data.name,
-      lastName: data.last_name,
-      level: data.lvl,
-    });
-
     if (!data.pdf) {
       console.log('Generating DOCX');
       return buffer;
@@ -101,18 +105,27 @@ export class DocumentsService {
       page: 1,
       filter: {},
     };
+    console.log('params', params);
+    //console.log('this.documentModel', await this.documentModel.find());
     return await PaginateModel(this.documentModel, params);
+    //return this.documentModel.findOne({ fullName: RegExp(id, 'i') });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} document`;
+  async findOne(id: string) {
+    if (mongoose.Types.ObjectId.isValid(id)) {
+      const user = await this.documentModel.findById(id);
+      if (user) return user;
+    }
+    //return error  if id is not valid
+
+    throw 'Invalid ID';
   }
 
   update(id: number, updateDocumentDto: UpdateDocumentDto) {
     return `This action updates a #${id} document`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} document`;
+  remove(id: string) {
+    return this.documentModel.deleteOne({ _id: new Types.ObjectId(id) });
   }
 }

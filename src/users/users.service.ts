@@ -29,19 +29,23 @@ export class UsersService {
     return users;
   }
 
-  async findOne(id: string) {
-    //const user = await this.userModel.findById(id).exec();
-    //find user by id, username or email
+  async findOne(id: string, fields?: string[]) {
     if (mongoose.Types.ObjectId.isValid(id)) {
       const user = await this.userModel.findById(id);
       if (user) return user;
     }
-    const q = id.toLocaleLowerCase();
-    const user = await this.userModel.findOne({
-      $or: [{ email: q }, { lower_username: q }],
+
+    if (fields) {
+      console.log(fields.join(' '));
+      return this.userModel
+        .findOne({
+          $or: [{ email: id }, { lower_username: id.toLocaleLowerCase() }],
+        })
+        .select(fields.join(' '));
+    }
+    return this.userModel.findOne({
+      $or: [{ email: id }, { lower_username: id.toLocaleLowerCase() }],
     });
-    if (user) return user;
-    return null;
   }
 
   async findOneByUsername(username: string) {

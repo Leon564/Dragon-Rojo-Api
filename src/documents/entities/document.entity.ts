@@ -12,7 +12,11 @@ export class CertificateDocument extends Document {
   @Prop({ required: true })
   lastName: string;
   @Prop({ required: true })
+  fullName: string;
+  @Prop({ required: true })
   date: string;
+  @Prop({ default: true })
+  active: boolean;
 }
 
 export const CertificateDocumentSchema =
