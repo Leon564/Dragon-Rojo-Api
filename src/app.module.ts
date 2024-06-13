@@ -10,12 +10,14 @@ import 'dotenv/config';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { join } from 'path';
 import { LoggingMiddleware } from './logger/logger.middleware';
+import { StudentsModule } from './students/students.module';
 
 @Module({
   imports: [
     MongooseModule.forRoot(process.env.MONGO_STRING_CONNECTION),
     AuthModule,
     DocumentsModule,
+    StudentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
