@@ -8,7 +8,7 @@ export class CertificateDocument extends Document {
   @Prop({ required: true })
   level: string;
   @Prop({ required: true })
-  name: string;
+  firstName: string;
   @Prop({ required: true })
   lastName: string;
   @Prop({ required: true })

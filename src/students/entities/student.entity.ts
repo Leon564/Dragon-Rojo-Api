@@ -9,7 +9,9 @@ export type StudentDocument = Student & Document;
 export class Student {
   _id: mongoose.Types.ObjectId;
   @Prop({ required: true })
-  name: string;
+  firstName: string;
+  @Prop({ required: true })
+  lastName: string;
   @Prop({ required: true })
   dateOfBirth: string;
   @Prop({ required: true })

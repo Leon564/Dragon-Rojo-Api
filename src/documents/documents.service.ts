@@ -21,24 +21,17 @@ export class DocumentsService {
   ) {}
 
   async generateDocument(data: any): Promise<Buffer | string> {
-    if (
-      !data.lvl ||
-      !data.name ||
-      !data.last_name ||
-      !data.date
-      // !data.month ||
-      // !data.year
-    ) {
+    if (!data.lvl || !data.first_name || !data.last_name || !data.date) {
       throw new Error('error data');
     }
 
     if (data.save_history) {
       this.documentModel.create({
-        date: data.date,
-        name: data.name,
+        date: data.first_name,
+        firstName: data.first_name,
         lastName: data.last_name,
         level: data.lvl,
-        fullName: `${data.name} ${data.last_name}`,
+        fullName: `${data.first_name} ${data.last_name}`,
       });
     }
 
@@ -50,9 +43,9 @@ export class DocumentsService {
     data.day = moment(data.date).format('DD');
     data.year = moment(data.date).format('YYYY');
 
-    if (data.name.length + data.last_name.length < 18) {
+    if (data.first_name.length + data.last_name.length < 18) {
       data.last_name = '  ' + data.last_name.split(' ').join('  ');
-      data.name = '\t' + data.name.split(' ').join('  ');
+      data.first_name = '\t' + data.first_name.split(' ').join('  ');
     }
 
     const file = templates[data.lvl];

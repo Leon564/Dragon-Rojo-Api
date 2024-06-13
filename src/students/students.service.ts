@@ -22,10 +22,14 @@ export class StudentsService {
       limit: 30,
       page: 1,
       filter: {},
-      ...query,
     };
+    if (query.page) params.page = parseInt(query.page);
+    if (query.limit) params.limit = parseInt(query.limit);
+    if (query.sort) params.sort = query.sort;
+    if (query.filter) params.filter = JSON.parse(query.filter);
+
     console.log(params);
-    console.log(await this.studentModel.find());
+    console.log(await PaginateModel(this.studentModel, params));
     return PaginateModel(this.studentModel, params);
   }
 

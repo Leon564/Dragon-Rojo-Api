@@ -4,7 +4,11 @@ import { IsNotEmpty, IsOptional } from 'class-validator';
 export class CreateStudentDto {
   @IsNotEmpty()
   @ApiProperty()
-  name: string;
+  firstName: string;
+
+  @IsNotEmpty()
+  @ApiProperty()
+  lastName: string;
 
   @IsNotEmpty()
   @ApiProperty()
