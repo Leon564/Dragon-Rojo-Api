@@ -3,7 +3,9 @@ import mongoose, { Document, Schema as scheema } from 'mongoose';
 
 export type UserDocument = User & Document;
 
-@Schema()
+@Schema({
+  timestamps: true,
+})
 export class User {
   id: mongoose.Types.ObjectId;
   @Prop({ required: true })
