@@ -20,6 +20,8 @@ export class Student {
   gender: string;
   @Prop({ required: false })
   carnet: string;
+  @Prop({ default: true })
+  active: boolean;
 }
 
 export const StudentSchema = SchemaFactory.createForClass(Student);
