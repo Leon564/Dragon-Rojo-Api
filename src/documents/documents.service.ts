@@ -42,10 +42,10 @@ export class DocumentsService {
     data.month = month;
     data.day = moment(data.date).format('DD');
     data.year = moment(data.date).format('YYYY');
-
+    data.name = data.first_name;
     if (data.first_name.length + data.last_name.length < 18) {
       data.last_name = '  ' + data.last_name.split(' ').join('  ');
-      data.first_name = '\t' + data.first_name.split(' ').join('  ');
+      data.name = '\t' + data.first_name.split(' ').join('  ');
     }
 
     const file = templates[data.lvl];
