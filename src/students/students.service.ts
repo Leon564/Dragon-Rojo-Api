@@ -45,6 +45,10 @@ export class StudentsService {
   }
 
   remove(id: string) {
-    return this.studentModel.deleteOne({ _id: new Types.ObjectId(id) });
+    return this.studentModel.findByIdAndUpdate(
+      id,
+      { deletedAt: new Date(new Date().toUTCString()), active: false },
+      { new: true },
+    );
   }
 }

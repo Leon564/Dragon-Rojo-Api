@@ -72,7 +72,10 @@ export class UsersService {
   }
 
   async remove(id: string) {
-    const deletedUser = await this.userModel.findByIdAndDelete(id);
-    return deletedUser;
+    return this.userModel.findByIdAndUpdate(
+      id,
+      { deletedAt: new Date(new Date().toUTCString()), active: false },
+      { new: true },
+    );
   }
 }
